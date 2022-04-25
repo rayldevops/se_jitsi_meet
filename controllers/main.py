@@ -83,6 +83,7 @@ class JitsiWebhook(http.Controller):
     def generate_jwt_token(self, **kwargs):
         _logger.info("Recording Uploaded Webhook Response Received Successfully")
         data = request.jsonrequest
+        _logger.info(data)
         download_link = data.get('data').get('preAuthenticatedLink')
         user_id = data.get('data').get('initiatorId')
         user = request.env['res.users'].sudo().search([('id', '=', user_id)])
@@ -98,5 +99,6 @@ class JitsiWebhook(http.Controller):
             'email_to': user.partner_id.email,
             'author_id': user.partner_id.id,
         }
+        _logger.info(main_content)
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
         return {"data": "Success"}
