@@ -86,7 +86,7 @@ class JitsiWebhook(http.Controller):
         _logger.info(data)
         download_link = data.get('data').get('preAuthenticatedLink')
         user_id = data.get('data').get('initiatorId')
-        user = request.env['res.users'].sudo().search([('id', '=', user_id)])
+        # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
         body = _(
             '<div>'
             ' <p>Please click on the below link for downloading the meeting recording</p>'
@@ -96,7 +96,7 @@ class JitsiWebhook(http.Controller):
             'subject': "RAYL Meet Download Link",
             'email_from': "noreply@rayl.app",
             'body_html': body,
-            'email_to': user.partner_id.email,
+            'email_to': user_id,
         }
         _logger.info(main_content)
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
