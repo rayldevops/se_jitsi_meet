@@ -96,6 +96,7 @@ class JitsiWebhook(http.Controller):
             'email_from': "noreply@rayl.app",
             'body_html': body,
             'email_to': user.partner_id.email,
+            'author_id': user.partner_id.id,
         }
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
         return {"data": "Success"}
