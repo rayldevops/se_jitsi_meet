@@ -62,7 +62,7 @@ class JistiMeet(http.Controller):
                                 "user": {
                                   "moderator": True,
                                   "name": request.env.user.name,
-                                  "id": request.env.user.id,
+                                  "id": request.env.user.email,
                                   # "avatar": "",
                                   "email": request.env.user.email,
                                 }
