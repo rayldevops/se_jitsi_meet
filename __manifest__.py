@@ -1,54 +1,30 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-
 {
-    'name': 'Subscriptions',
-    'version': '1.1',
-    'category': 'Sales/Subscriptions',
-    'sequence': 115,
-    'summary': 'Generate recurring invoices and manage renewals',
+    'name': 'Video Call/Conference with Jitsi Meet. Integration with Odoo',
+    'version': '13.0.1.0.0',
+    'category': 'Extra Tools',
+'website': "https://softwareescarlata.com/",
+    'sequence': 1,
+    'summary': 'Create and share Jitsi Meet video conferences with other users',
     'description': """
-This module allows you to manage subscriptions.
-
-Features:
-    - Create & edit subscriptions
-    - Modify subscriptions with sales orders
-    - Generate invoice automatically at fixed intervals
-""",
-    'author': 'Camptocamp / Odoo',
-    'website': 'https://www.odoo.com/page/subscriptions',
-    'depends': [
-        'sale_management',
-        'portal',
-        'web_cohort',
-        'rating',
-        'base_automation',
-        'sms',
-    ],
-    'data': [
-        'security/sale_subscription_security.xml',
+		Adds a new APP to create and share Jisti Meet video conference meetings between Odoo users.
+		When you join the meeting Odoo opens a new browser tab so you can keep working on Odoo, and share screen with your partners at Jisti Meet. 
+    """,
+    'author': "David Montero Crespo",
+    "depends": ['base','web','mail','website'],
+    "data": [
+        'views/se_jitsi_meet_views.xml',
+        'views/template.xml',
+        'data/se_jitsi_meet.xml',
+        'data/mail_template.xml',
         'security/ir.model.access.csv',
-        'security/sms_security.xml',
-        'wizard/sale_subscription_close_reason_wizard_views.xml',
-        'wizard/sale_subscription_wizard_views.xml',
-        'wizard/sale_subscription_renew_wizard_views.xml',
-        'views/sale_order_views.xml',
-        'views/product_template_views.xml',
-        'views/res_partner_views.xml',
-        'views/sale_subscription_views.xml',
-        'views/account_analytic_account_views.xml',
-        'views/assets.xml',
-        'views/subscription_portal_templates.xml',
-        'views/mail_activity_views.xml',
-        'data/mail_template_data.xml',
-        'data/sale_subscription_data.xml',
-        'data/sms_template_data.xml',
-        'report/sale_subscription_report_view.xml',
+        'security/base_security.xml',
     ],
-    'demo': [
-        'data/sale_subscription_demo.xml'
-    ],
+    'images': ['static/description/0.jpg'],
+    'installable': True,
+    'auto_install': False,
     'application': True,
-    'license': 'OEEL-1',
+    'price': 30,
+    'currency': 'EUR',
+    'license': 'AGPL-3',
 }

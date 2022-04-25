@@ -17,7 +17,7 @@ import time
 from odoo.http import request
 from authlib.jose import jwt
 import os
-
+import logging
 
 _logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class JistiMeet(http.Controller):
         else:
             return request.render("se_jitsi_meet.meet_closed")
 
-    @http.route('/get-jwt-token', type='http', auth="public", website=True)
+    @http.route('/get-jwt-token', type='http', auth="public", website=True,  methods=['GET'])
     def generate_jwt_token(self):
         app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
         header = {"kid": request.env['ir.config_parameter'].sudo().get_param('jitsi.kid'),
@@ -61,10 +61,10 @@ class JistiMeet(http.Controller):
                                 },
                                 "user": {
                                   "moderator": True,
-                                  # "name": "raylgeneral2022@gm12ail.com",
-                                  # "id": "auth|625943122a651ac100704bb273",
+                                  "name": request.env.user.name,
+                                  "id": request.env.user.id,
                                   # "avatar": "",
-                                  # "email": "raylgeneral201222@gmail.com"
+                                  "email": request.env.user.email,
                                 }
                               },
                    "room": "*",
@@ -75,3 +75,27 @@ class JistiMeet(http.Controller):
         with open(fp, "rb") as pem_file:
             private_key = pem_file.read()
         return jwt.encode(header, payload, private_key)
+
+
+class JitsiWebhook(http.Controller):
+
+    @http.route('/jitsi_recording', type='json', auth="public", website=True,  methods=['POST'])
+    def generate_jwt_token(self, **kwargs):
+        _logger.info("Recording Uploaded Webhook Response Received Successfully")
+        data = request.jsonrequest
+        download_link = data.get('data').get('preAuthenticatedLink')
+        user_id = data.get('data').get('initiatorId')
+        user = request.env['res.users'].sudo().search([('id', '=', user_id)])
+        body = _(
+            '<div>'
+            ' <p>Please click on the below link for downloading the meeting recording</p>'
+            '%s'
+            '</div>' % download_link)
+        main_content = {
+            'subject': "RAYL Meet Download Link",
+            'email_from': "noreply@rayl.app",
+            'body_html': body,
+            'email_to': user.partner_id.email,
+        }
+        request.env['mail.mail'].sudo().create(main_content).sudo().send()
+        return {"data": "Success"}

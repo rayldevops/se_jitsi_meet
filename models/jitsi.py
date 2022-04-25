@@ -9,12 +9,12 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    return f"{app_id}/+{p}"
+    return f"{app_id}/{p}"
 
 
 class JistiMeet(models.Model):
     _name = 'jitsi.meet'
-    _description = 'Rayl Meeting'
+    _description = 'RAYL Meeting'
     _order = 'date desc'
     _inherit = 'mail.thread'
 
@@ -118,7 +118,7 @@ class JistiMeet(models.Model):
                 mail_content +='<p>Thank you,</p></div>'
                 mail_content = (mail_content) % (self.date_formated, self.url_to_link)
             main_content = {
-                'subject': "Rayl Meet Invitation",
+                'subject': "RAYL Meet Invitation",
                 'author_id': self.env.user.partner_id.id,
                 'body_html': mail_content,
                 'email_to': record.email,
