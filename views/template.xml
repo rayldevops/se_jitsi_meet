@@ -21,6 +21,7 @@
                     if ($('#hash').attr('name')){
                     var api = new JitsiMeetExternalAPI(domain, options);
                     }
+                    interfaceConfigOverwrite: { notificationTimeouts: medium }
                     });
                 </script>
 
