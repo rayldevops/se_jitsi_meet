@@ -70,6 +70,7 @@ class JistiMeet(http.Controller):
                    "room": "*",
                    "sub": app_id
                    }
+        _logger.info(payload)
         script_dir = os.path.dirname(__file__)
         fp = os.path.join(script_dir, 'jitsi_private_key.pk')
         with open(fp, "rb") as pem_file:
