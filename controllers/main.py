@@ -40,6 +40,7 @@ class JistiMeet(http.Controller):
         else:
             return request.render("se_jitsi_meet.meet_closed")
 
+
     @http.route('/get-jwt-token', type='http', auth="public", website=True, methods=['GET'])
     def generate_jwt_token(self):
         app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
@@ -62,7 +63,7 @@ class JistiMeet(http.Controller):
                            "moderator": True,
                            "name": request.env.user.name,
                            "id": request.env.user.email,
-                           # "avatar": "",
+                          # "avatar": "",
                            "email": request.env.user.email,
                        }
                    },
