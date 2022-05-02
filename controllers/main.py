@@ -23,7 +23,10 @@ _logger = logging.getLogger(__name__)
 
 
 class JistiMeet(http.Controller):
+<<<<<<< HEAD
 
+=======
+>>>>>>> a805184e495c528fbe100c12526edbb2415431e1
     exp_time = 7200  # 7200 Seconds = 2 Hours
     nbf_seconds = 10  # Seconds
 
@@ -41,7 +44,11 @@ class JistiMeet(http.Controller):
         else:
             return request.render("se_jitsi_meet.meet_closed")
 
+<<<<<<< HEAD
     @http.route('/get-jwt-token', type='http', auth="public", website=True,  methods=['GET'])
+=======
+    @http.route('/get-jwt-token', type='http', auth="public", website=True, methods=['GET'])
+>>>>>>> a805184e495c528fbe100c12526edbb2415431e1
     def generate_jwt_token(self):
         app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
         header = {"kid": request.env['ir.config_parameter'].sudo().get_param('jitsi.kid'),
@@ -52,6 +59,7 @@ class JistiMeet(http.Controller):
                    "exp": int(_time + JistiMeet.exp_time),
                    "nbf": int(_time - JistiMeet.nbf_seconds),
                    "context": {
+<<<<<<< HEAD
                                 "features": {
                                   "livestreaming": True,
                                   "outbound-call": True,
@@ -67,6 +75,23 @@ class JistiMeet(http.Controller):
                                   "email": request.env.user.email,
                                 }
                               },
+=======
+                       "features": {
+                           "livestreaming": True,
+                           "outbound-call": True,
+                           "sip-outbound-call": False,
+                           "transcription": True,
+                           "recording": True
+                       },
+                       "user": {
+                           "moderator": True,
+                           "name": request.env.user.name,
+                           "id": request.env.user.email,
+                           # "avatar": "",
+                           "email": request.env.user.email,
+                       }
+                   },
+>>>>>>> a805184e495c528fbe100c12526edbb2415431e1
                    "room": "*",
                    "sub": app_id
                    }
@@ -79,7 +104,11 @@ class JistiMeet(http.Controller):
 
 class JitsiWebhook(http.Controller):
 
+<<<<<<< HEAD
     @http.route('/jitsi_recording', type='json', auth="public", website=True,  methods=['POST'])
+=======
+    @http.route('/jitsi_recording', type='json', auth="public", website=True, methods=['POST'])
+>>>>>>> a805184e495c528fbe100c12526edbb2415431e1
     def generate_jwt_token(self, **kwargs):
         _logger.info("Recording Uploaded Webhook Response Received Successfully")
         data = request.jsonrequest
