@@ -8,7 +8,7 @@
                 <script>
                     var domain = $('#domain').attr('name');
                     console.log("came here");
-		    console.log(domain)
+		            console.log(domain)
                      $.get("/get-jwt-token", function(data, status){
                         console.log(data);
                         console.log(status);
@@ -21,7 +21,6 @@
                         };
                         if ($('#hash').attr('name')){
                             var api = new JitsiMeetExternalAPI(domain, options);
-                            api.addListener(‘readyToClose’, closeiframe);
                         }
                           });
                 </script>
