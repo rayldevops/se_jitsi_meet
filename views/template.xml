@@ -16,7 +16,7 @@
                                    roomName: $('#hash').attr('name'),
                                    height: 600,
                                    jwt: data,
-	                           interfaceConfigOverwrite: { notificationTimeouts: {medium:5000}},
+                                   interfaceConfigOverwrite: { notificationTimeouts: {long:10000}},
                                    parentNode: document.querySelector('#meet')
                         };
                         if ($('#hash').attr('name')){
