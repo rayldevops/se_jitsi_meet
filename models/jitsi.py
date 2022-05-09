@@ -9,7 +9,7 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    return f"{app_id}/{p}"
+    return f"{app_id}/{request.env.user.email}"
 
 
 class JistiMeet(models.Model):
@@ -100,7 +100,7 @@ class JistiMeet(models.Model):
             mail_content = _(
                 '<div><p>You have been invited to a meeting</p>'
                 ' <p>Please join us on  %s by clicking on the followin link: </p>'
-                ' <p>'
+                  ' <p>'
                 '<a href="%s">JOIN MEETING</a>'
                 ' </p>')
             if self.is_password_required:
