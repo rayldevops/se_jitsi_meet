@@ -101,3 +101,49 @@ class JitsiWebhook(http.Controller):
         _logger.info(main_content)
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
         return {"data": "Success"}
+
+    @http.route('/jitsi-chat-uploaded', type='json', auth="public", website=True, methods=['POST'])
+    def generate_jwt_chat_uploaded(self, **kwargs):
+        _logger.info("Chat Uploaded Webhook Response Received Successfully")
+        data = request.jsonrequest
+        _logger.info(data)
+        download_link = data.get('data').get('preAuthenticatedLink')
+        email_to = data.get('fqn').split('/')[1]
+        # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
+        body = _(
+            '<div>'
+            ' <p>Please click on the below link for downloading the meeting chats</p>'
+            '%s'
+            '</div>' % download_link)
+        main_content = {
+            'subject': "RAYL Meet Chat",
+            'email_from': "noreply@rayl.app",
+            'body_html': body,
+            'email_to': email_to,
+        }
+        _logger.info(main_content)
+        request.env['mail.mail'].sudo().create(main_content).sudo().send()
+        return {"data": "Success"}
+
+    @http.route('/jitsi-poll-answer', type='json', auth="public", website=True, methods=['POST'])
+    def generate_poll_answer(self, **kwargs):
+        _logger.info("Recording Uploaded Webhook Response Received Successfully")
+        data = request.jsonrequest
+        _logger.info(data)
+        poll_response = data.get('data')
+        email_to = data.get('fqn').split('/')[1]
+        # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
+        body = _(
+            '<div>'
+            ' <p>Below are the list of Polls</p>'
+            '%s'
+            '</div>' % poll_response)
+        main_content = {
+            'subject': "RAYL Meet Poll Response",
+            'email_from': "noreply@rayl.app",
+            'body_html': body,
+            'email_to': email_to,
+        }
+        _logger.info(main_content)
+        request.env['mail.mail'].sudo().create(main_content).sudo().send()
+        return {"data": "Success"}
