@@ -122,7 +122,7 @@ class JitsiWebhook(http.Controller):
             'email_to': email_to,
         }
         _logger.info(main_content)
-        request.env['mail.mail'].sudo().create(main_content).sudo().send()
+        request.env['mail.mail'].create(main_content).send()
         return {"data": "Success"}
 
     @http.route('/jitsi-poll-answer', type='json', auth="public", website=True, methods=['POST'])
@@ -145,5 +145,5 @@ class JitsiWebhook(http.Controller):
             'email_to': email_to,
         }
         _logger.info(main_content)
-        request.env['mail.mail'].sudo().create(main_content).sudo().send()
+        request.env['mail.mail'].create(main_content).send()
         return {"data": "Success"}
