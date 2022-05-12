@@ -9,7 +9,7 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    return f"{app_id}/{request.env.user.email}"
+    return f"{app_id}/{request.env.user.login}"
 
 
 class JistiMeet(models.Model):
