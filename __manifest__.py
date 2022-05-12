@@ -13,6 +13,7 @@
     'author': "Rayl",
     "depends": ['base', 'web', 'mail', 'website'],
     'pre_init_hook': '_install_required_package',
+
     "data": [
         'views/se_jitsi_meet_views.xml',
         'views/template.xml',

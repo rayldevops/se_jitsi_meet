@@ -109,6 +109,7 @@ class JitsiWebhook(http.Controller):
         _logger.info(data)
         download_link = data.get('data').get('preAuthenticatedLink')
         email_to = data.get('fqn').split('/')[1]
+        _logger.info('Email', email_to)
         # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
         body = _(
             '<div>'
@@ -132,6 +133,7 @@ class JitsiWebhook(http.Controller):
         _logger.info(data)
         poll_response = data.get('data')
         email_to = data.get('fqn').split('/')[1]
+
         # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
         body = _(
             '<div>'
