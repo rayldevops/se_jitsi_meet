@@ -24,7 +24,7 @@ def create_hash():
     # encrypted_email = b64encode(encMessage)
     str_messages = encMessage.decode("utf-8")
     str_message= str(str_messages)
-    _logger.info("string message",str_message)
+    _logger.info("string message %r",str_message)
     return f"{app_id}/{str_message}"
 
 
