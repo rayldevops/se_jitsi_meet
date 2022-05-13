@@ -14,8 +14,9 @@ def create_hash():
     key = Fernet.generate_key()
     fernet = Fernet(key)
     encMessage = fernet.encrypt(login.encode())
-    str_message= str(encMessage)
-    return f"{app_id}/{str_message}"
+    str_messages = encMessage.decode("utf-8")
+    str_message= str(str_messages)
+    return f"{app_id}/{str(str_message)}"
 
 
 class JistiMeet(models.Model):

@@ -114,8 +114,8 @@ class JitsiWebhook(http.Controller):
         _logger.info(email_to)
         key = Fernet.generate_key()
         fernet = Fernet(key)
-
-        decMessage = fernet.decrypt(bytes(email_to,'UTF-8')).decode()
+        email_to=bytes(str(email_to), 'UTF-8')
+        decMessage = fernet.decrypt(email_to).decode()
 
         _logger.info('Email', decMessage)
         # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
