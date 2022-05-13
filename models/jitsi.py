@@ -24,7 +24,7 @@ def create_hash():
     # encrypted_email = b64encode(encMessage)
     str_messages = encMessage.decode("utf-8")
     str_message= str(str_messages)
-    _logger.info("string message %r",str_message)
+    _logger.info(str_message)
     return f"{app_id}/{str_message}"
 
 
@@ -76,6 +76,7 @@ class JistiMeet(models.Model):
     @api.model
     def create(self, vals):
         vals['hash'] = create_hash()
+
         res = super(JistiMeet, self).create(vals)
         return res
 
