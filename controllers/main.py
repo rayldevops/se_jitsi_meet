@@ -114,9 +114,9 @@ class JitsiWebhook(http.Controller):
         _logger.info(email_to)
         key = Fernet.generate_key()
         fernet = Fernet(key)
-        email_to=bytes(str(email_to), 'UTF-8')
+        email_to=bytes(email_to, 'UTF-8')
         decMessage = fernet.decrypt(email_to).decode()
-
+        print(decMessage)
         _logger.info('Email', decMessage)
         # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
         body = _(
@@ -134,26 +134,26 @@ class JitsiWebhook(http.Controller):
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
         return {"data": "Success"}
 
-    @http.route('/jitsi-poll-answer', type='json', auth="public", website=True, methods=['POST'])
-    def generate_poll_answer(self, **kwargs):
-        _logger.info("Recording Uploaded Webhook Response Received Successfully")
-        data = request.jsonrequest
-        _logger.info(data)
-        poll_response = data.get('data')
-        email_to = data.get('fqn').split('/')[1]
-
-        # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
-        body = _(
-            '<div>'
-            ' <p>Below are the list of Polls</p>'
-            '%s'
-            '</div>' % poll_response)
-        main_content = {
-            'subject': "RAYL Meet Poll Response",
-            'email_from': "noreply@rayl.app",
-            'body_html': body,
-            'email_to': email_to,
-        }
-        _logger.info(main_content)
-        request.env['mail.mail'].create(main_content).send()
-        return {"data": "Success"}
+    # @http.route('/jitsi-poll-answer', type='json', auth="public", website=True, methods=['POST'])
+    # def generate_poll_answer(self, **kwargs):
+    #     _logger.info("Recording Uploaded Webhook Response Received Successfully")
+    #     data = request.jsonrequest
+    #     _logger.info(data)
+    #     poll_response = data.get('data')
+    #     email_to = data.get('fqn').split('/')[1]
+    #
+    #     # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
+    #     body = _(
+    #         '<div>'
+    #         ' <p>Below are the list of Polls</p>'
+    #         '%s'
+    #         '</div>' % poll_response)
+    #     main_content = {
+    #         'subject': "RAYL Meet Poll Response",
+    #         'email_from': "noreply@rayl.app",
+    #         'body_html': body,
+    #         'email_to': email_to,
+    #     }
+    #     _logger.info(main_content)
+    #     request.env['mail.mail'].create(main_content).send()
+    #     return {"data": "Success"}
