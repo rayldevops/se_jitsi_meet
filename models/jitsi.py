@@ -78,7 +78,8 @@ class JistiMeet(models.Model):
     @api.model
     def create(self, vals):
         vals['hash'] = create_hash()
-
+        _logger.info(vals['hash'])
+        _logger.info(vals)
         res = super(JistiMeet, self).create(vals)
         return res
 
