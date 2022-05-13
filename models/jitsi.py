@@ -2,6 +2,8 @@ from odoo import models, fields, api,_
 from random import choice
 from odoo.http import request
 from cryptography.fernet import Fernet
+from simplecrypt import encrypt
+from base64 import b64encode, b64decode
 
 
 def create_hash():
@@ -10,13 +12,14 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    login =request.env.user.login
-    key = Fernet.generate_key()
-    fernet = Fernet(key)
-    encMessage = fernet.encrypt(login.encode())
-    str_messages = encMessage.decode("utf-8")
-    str_message= str(str_messages)
-    return f"{app_id}/{str_message}"
+    request.env.user.login
+    # key = Fernet.generate_key()
+    # fernet = Fernet(key)
+    encMessage = encrypt("planet-odoo", request.env.user.login)
+    encrypted_email = b64encode(encMessage)
+    # str_messages = encMessage.decode("utf-8")
+    # str_message= str(str_messages)
+    return f"{app_id}/{encrypted_email}"
 
 
 class JistiMeet(models.Model):
