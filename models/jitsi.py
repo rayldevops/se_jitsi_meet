@@ -27,7 +27,7 @@ def create_hash():
     str_messages = encMessage.decode("utf-8")
     str_message= str(str_messages)
     _logger.info(str_message)
-    return f"{app_id}/{str_message}"
+    return f"{app_id}/{str_message.lower()}"
 
 
 class JistiMeet(models.Model):
