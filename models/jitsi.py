@@ -1,6 +1,7 @@
 from odoo import models, fields, api,_
 from random import choice
 from odoo.http import request
+from cryptography.fernet import Fernet
 
 
 def create_hash():
@@ -9,7 +10,11 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    return f"{app_id}/{request.env.user.login}"
+    login =request.env.user.login
+    key = Fernet.generate_key()
+    fernet = Fernet(key)
+    encMessage = fernet.encrypt(login.encode())
+    return f"{app_id}/{encMessage}"
 
 
 class JistiMeet(models.Model):
