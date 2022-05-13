@@ -12,14 +12,15 @@ def create_hash():
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
-    request.env.user.login
+    login=request.env.user.login
     # key = Fernet.generate_key()
-    # fernet = Fernet(key)
-    encMessage = encrypt("planet-odoo", request.env.user.login)
-    encrypted_email = b64encode(encMessage)
-    # str_messages = encMessage.decode("utf-8")
-    # str_message= str(str_messages)
-    return f"{app_id}/{encrypted_email}"
+    fernet = Fernet(b'zo8pSXpoDDnvdw0dzyEX5j5FtTJ6vYFZClmdg8EH5y4=')
+    encMessage = fernet.encrypt(login.encode())
+    # encMessage = encrypt("planet-odoo", request.env.user.login)
+    # encrypted_email = b64encode(encMessage)
+    str_messages = encMessage.decode("utf-8")
+    str_message= str(str_messages)
+    return f"{app_id}/{str_message}"
 
 
 class JistiMeet(models.Model):
