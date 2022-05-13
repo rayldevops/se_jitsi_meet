@@ -111,13 +111,13 @@ class JitsiWebhook(http.Controller):
         _logger.info(data)
         download_link = data.get('data').get('preAuthenticatedLink')
         email_to = data.get('fqn').split('/')[1]
-        _logger.info(email_to)
-        key = Fernet.generate_key()
-        fernet = Fernet(key)
-        email_to=bytes(str(email_to), 'UTF-8')
-        decMessage = fernet.decrypt(email_to).decode()
+        # _logger.info(email_to)
+        # key = Fernet.generate_key()
+        # fernet = Fernet(key)
+        # email_to=bytes(str(email_to), 'UTF-8')
+        # decMessage = fernet.decrypt(email_to).decode()
 
-        _logger.info('Email', decMessage)
+        # _logger.info('Email', decMessage)
         # user = request.env['res.users'].sudo().search([('id', '=', user_id)])
         body = _(
             '<div>'
@@ -128,7 +128,7 @@ class JitsiWebhook(http.Controller):
             'subject': "RAYL Meet Chat",
             'email_from': "noreply@rayl.app",
             'body_html': body,
-            'email_to': decMessage,
+            'email_to': email_to,
         }
         _logger.info(main_content)
         request.env['mail.mail'].sudo().create(main_content).sudo().send()
