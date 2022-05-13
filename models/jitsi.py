@@ -3,7 +3,9 @@ from random import choice
 from odoo.http import request
 from cryptography.fernet import Fernet
 from simplecrypt import encrypt
+import logging
 from base64 import b64encode, b64decode
+_logger = logging.getLogger(__name__)
 
 
 def create_hash():
@@ -15,11 +17,14 @@ def create_hash():
     login=request.env.user.login
     # key = Fernet.generate_key()
     fernet = Fernet(b'zo8pSXpoDDnvdw0dzyEX5j5FtTJ6vYFZClmdg8EH5y4=')
+
+
     encMessage = fernet.encrypt(login.encode())
     # encMessage = encrypt("planet-odoo", request.env.user.login)
     # encrypted_email = b64encode(encMessage)
     str_messages = encMessage.decode("utf-8")
     str_message= str(str_messages)
+    _logger.info("string message",str_message)
     return f"{app_id}/{str_message}"
 
 
