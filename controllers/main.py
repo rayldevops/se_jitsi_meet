@@ -117,6 +117,8 @@ class JitsiWebhook(http.Controller):
         fernet = Fernet(b'zo8pSXpoDDnvdw0dzyEX5j5FtTJ6vYFZClmdg8EH5y4=')
         # cipher = b64decode(email_to)
         # dec_email_to = decrypt("planet-odoo", cipher)
+        email_to = bytes(str(email_to), 'UTF-8')
+
         decMessage = fernet.decrypt(email_to).decode()
         # print(decMessage)
         _logger.info('Email', decMessage)
