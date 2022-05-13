@@ -11,6 +11,8 @@ _logger = logging.getLogger(__name__)
 def create_hash():
     size = 32
     values = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    _logger.info(values)
+
     p = ''
     p = p.join([choice(values) for i in range(size)])
     app_id = request.env['ir.config_parameter'].sudo().get_param('jitsi.app_id')
