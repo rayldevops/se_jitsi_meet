@@ -22,14 +22,14 @@ def create_hash():
 
 
     encMessage = fernet.encrypt(login.encode())
-    # encMessage = encrypt("planet-odoo", request.env.user.login)
-    # encrypted_email = b64encode(encMessage)
-    str_messages = encMessage.decode("utf-8")
-    str_message= str(str_messages)
-    _logger.info(str_message)
-    str_message=str_message.lower()
-    _logger.info(str_message)
-    return f"{app_id}/{str_message}"
+    encMessage = encrypt("planet-odoo", request.env.user.login)
+    encrypted_email = b64encode(encMessage)
+    # str_messages = encMessage.decode("utf-8")
+    # str_message= str(str_messages)
+    # _logger.info(str_message)
+    # str_message=str_message.lower()
+    _logger.info(encrypted_email)
+    return f"{app_id}/{encrypted_email}"
 
 
 class JistiMeet(models.Model):
