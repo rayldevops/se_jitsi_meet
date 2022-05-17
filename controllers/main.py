@@ -22,7 +22,6 @@ from simplecrypt import decrypt
 from base64 import b64encode, b64decode
 from cryptography.fernet import Fernet
 
-
 _logger = logging.getLogger(__name__)
 
 
@@ -66,7 +65,7 @@ class JistiMeet(http.Controller):
                            "moderator": True,
                            "name": request.env.user.name,
                            "id": request.env.user.email,
-                          # "avatar": "",
+                           # "avatar": "",
                            "email": request.env.user.email,
                        }
                    },
@@ -112,6 +111,7 @@ class JitsiWebhook(http.Controller):
         _logger.info(data)
         download_link = data.get('data').get('preAuthenticatedLink')
         email_to = data.get('fqn').split('/')[1]
+        email_to = email_to + '='
         _logger.info(email_to)
         # key = Fernet.generate_key()
         fernet = Fernet(b'zo8pSXpoDDnvdw0dzyEX5j5FtTJ6vYFZClmdg8EH5y4=')
